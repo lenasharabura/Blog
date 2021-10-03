@@ -1,9 +1,10 @@
 from django import forms
+from django.forms import HiddenInput
 
 from articles.models import Article
 
 
-class ArticleForm(forms.ModelForm):
+class ArticleForm(forms.Form):
     name = forms.CharField(label='Название статьи', widget=forms.TextInput(attrs={
         'class': 'form-control',
         'placeholder': 'Название статьи'
@@ -13,6 +14,3 @@ class ArticleForm(forms.ModelForm):
         'class': 'form-control',
         'placeholder': 'Текст статьи'}))
 
-    class Meta:
-        model = Article
-        fields = '__all__'

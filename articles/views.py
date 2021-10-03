@@ -1,6 +1,4 @@
 import datetime
-
-import author as author
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
@@ -15,7 +13,7 @@ __all__ = (
     'home',
     'show_article',
     'ArticleCreateView',
-    # 'create_article',
+    'create_article',
     'save_article',
 )
 
@@ -44,15 +42,25 @@ class ArticleCreateView(CreateView):
     success_message = "Статья успешно создана"
 
 
+def create_article(request):
+    form = ArticleForm()
+    context = {'form': form}
+    return render(request, 'articles/create.html', context)
+
+
 def save_article(request):
     if request.method == 'POST':
         form = ArticleForm(request.POST)
+        data = request.POST
         if form.is_valid():
-            form.author = request.user
-            form.save()
-            messages.success(request, 'Статья успешно сохранена')
-            return redirect('/')
+            obj = Article()
+            obj.name = data['name']
+            obj.article = data['article']
+            obj.author = request.user
+            obj.save()
 
+            messages.success(request, 'Маршрут успешно сохранен')
+            return redirect('/')
         return render(request, 'articles/create.html', {"form": form})
     else:
         messages.error(request, 'Невозможно сохранить статью')

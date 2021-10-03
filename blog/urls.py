@@ -15,7 +15,7 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 
 from articles.views import *
 
@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('<int:pk>/', show_article, name='detail'),
-    path('create/', ArticleCreateView.as_view(), name='create'),
+    # path('create/', ArticleCreateView.as_view(), name='create'),
+    path('create/', create_article, name='create'),
     path('save_article/', save_article, name='save_article'),
 ]
