@@ -9,17 +9,20 @@
         <div class="row my-5">
             <div class="col-lg-8">
 
-                {% for object in page_obj %}
+                {% for obj in page_obj %}
                     <div class="card border-secondary mb-3">
                         <div class="card-header">
-                            <h4>{{ object.name }}</h4>
-                            <small>Created: {{ object.date | date:"d N Y H:i" }} | by: {{ object.author }}</small>
+                            <h4>{{ obj.name }}</h4>
+                        </div>
+                        <div class="card-header">
+                            <small>By: {{ obj.author }} | {{ obj.date | date:"d N Y H:i" }}  </small>
                         </div>
                         <div class="card-body">
                             <blockquote class="blockquote mb-3">
-                                <p class="card-text">{{ object.article | truncatewords:12 }}</p>
+                                <p class="card-text">{{ obj.article | truncatewords:25 }}</p>
                             </blockquote>
-                            <a href='{% url "detail" pk=object.pk %}'>Read</a>
+                            <a href='{% url "detail" pk=obj.pk %}'>
+                                <button type="submit" class="btn border-secondary btn-light" >Read more</button></a>
                         </div>
                     </div>
                 {% endfor %}
@@ -27,6 +30,10 @@
             </div>
             <div class="col-md-4">
                 <h1>Most commented</h1>
+                {% for article, count in sorted_articles.items %}
+                    {{ comments.article }} {{ count }}
+                {% endfor %}
+
             </div>
         </div>
     </div>

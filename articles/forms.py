@@ -1,7 +1,4 @@
 from django import forms
-from django.forms import HiddenInput
-
-from articles.models import Article
 
 
 class ArticleForm(forms.Form):

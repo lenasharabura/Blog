@@ -23,19 +23,21 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto">
+                {% if  user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'create' %}">Создать</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Выйти</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'accounts:logout' %}">Выйти</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'accounts:login' %}">Войти</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Войти</a>
+                    <a class="nav-link" href="{% url 'accounts:register' %}">Регистрация</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Регистрация</a>
-                </li>
-
+                {% endif %}
 
             </ul>
         </div>

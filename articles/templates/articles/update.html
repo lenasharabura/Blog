@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Редактирование статьи{% endblock %}
+
+{% block content %}
+<h1>Редактировать статью</h1>
+
+    {% url 'update_article' as action %}
+{% include 'form.html' with button="Редактировать" action=action %}
+
+{% endblock %}
+
