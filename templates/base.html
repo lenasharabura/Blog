@@ -25,7 +25,7 @@
             <ul class="navbar-nav ms-auto">
                 {% if  user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'create' %}">Создать</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'create' %}">Создать статью</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'accounts:logout' %}">Выйти</a>

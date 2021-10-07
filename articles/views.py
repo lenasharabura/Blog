@@ -22,21 +22,27 @@ from comments.models import Comment
 
 
 def home(request):
-    all_comments = Comment.objects.all()
     articles = Comment.objects.values_list('name', flat=True)
     articles = sorted(list(articles), key=lambda x: list(articles).count(x), reverse=True)
+
     sorted_articles = dict()
     i = 0
     while len(sorted_articles) != 5:
         if articles[i] not in sorted_articles:
             sorted_articles[articles[i]] = articles.count(articles[i])
         i += 1
+    qs = Article.objects.filter(id__in=sorted_articles)
+    top_articles = list(sorted_articles)
+    for q in qs:
+        top_articles[top_articles.index(q.id)] = {'article': q, 'count': sorted_articles[q.id]}
     print(sorted_articles)
+    print(top_articles)
+
     qs = Article.objects.all()
     paginator = Paginator(qs, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    context = {'page_obj': page_obj, 'comments': all_comments, 'sorted_articles': sorted_articles}
+    context = {'page_obj': page_obj, 'top_articles': top_articles}
     return render(request, 'articles/home.html', context)
 
 

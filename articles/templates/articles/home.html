@@ -7,7 +7,7 @@
 {% block content %}
     <div class="container">
         <div class="row my-5">
-            <div class="col-lg-8">
+            <div class="col-md-8">
 
                 {% for obj in page_obj %}
                     <div class="card border-secondary mb-3">
@@ -22,18 +22,31 @@
                                 <p class="card-text">{{ obj.article | truncatewords:25 }}</p>
                             </blockquote>
                             <a href='{% url "detail" pk=obj.pk %}'>
-                                <button type="submit" class="btn border-secondary btn-light" >Read more</button></a>
+                                <button type="submit" class="btn border-secondary btn-light">Read more</button>
+                            </a>
                         </div>
                     </div>
                 {% endfor %}
 
             </div>
             <div class="col-md-4">
-                <h1>Most commented</h1>
-                {% for article, count in sorted_articles.items %}
-                    {{ comments.article }} {{ count }}
-                {% endfor %}
+                <div class="card">
+                    <div class="card-header">
+                        Самые комментируемые статьи
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {% for article in top_articles %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <a href='{% url "detail" pk=article.article.pk %}'>{{ article.article.name }}</a>
+                                    <span class="badge rounded-pill bg-light text-dark">{{ article.count }}</span>
+                                </li>
+                        {% endfor %}
+                    </ul>
+                    {#                {% for article, count in sorted_articles.items %}#}
+                    {#                    {{ comments.article }} {{ count }}#}
+                    {#                {% endfor %}#}
 
+                </div>
             </div>
         </div>
     </div>

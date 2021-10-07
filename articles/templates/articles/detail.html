@@ -5,49 +5,49 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="row my-5">
-            <div class="col-lg">
-                <h2>{{ article.name }}</h2>
-                <p>{{ article.article }}</p>
-                <small>Created: {{ article.date | date:"d.m.Y h:m" }} | by: {{ article.author }}</small>
+    <div class="row my-5">
+        <div class="col-lg">
+            <h2>{{ article.name }}</h2>
+            <p>{{ article.article }}</p>
+            <small>Created: {{ article.date | date:"d.m.Y h:m" }} | by: {{ article.author }}</small>
+            <p></p>
+            <p>
+                {% if article.author == user %}
+                    <a href="{% url 'update' pk=article.pk %}">
+                        <button type="button" class="btn btn-outline-primary">Редактировать&#128396;</button>
+                    </a>
+                    <a href="{% url 'delete' pk=article.pk %}">
+                        <button type="button" class="btn btn-outline-danger">Удалить&#128465;</button>
+                    </a>{% endif %}
+            </p>
+            <div class="row">
+                <div class="col-lg-7 ms-auto">
+                    <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseExample"
+                            aria-expanded="false" aria-controls="collapseExample">Посмотреть комментарии
+                    </button>
+
+
+                    <div class="collapse mx-auto" id="collapseExample">
+                        <div class="card w-60">
+                            {% for comment in comments %}
+                                <div class="card text-center mb-3">
+                                    <div class="card-header text-muted">
+                                        {{ comment.commentator }}
+                                    </div>
+                                    <div class="card-body">
+                                        {{ comment.comment }}
+                                    </div>
+
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
             </div>
+            {% url 'detail' pk=object.pk as action %}
+            {% include 'form.html' with button="Комментировать" action=action %}
         </div>
     </div>
-    <p>
-
-        {% if article.author == user %}
-            <a href="{% url 'update' pk=article.pk %}">
-                <button type="button" class="btn btn-outline-primary">Ред.&#128396;</button>
-            </a>
-            <a href="{% url 'delete' pk=article.pk %}">
-                <button type="button" class="btn btn-outline-danger">Удалить&#128465;</button>
-            </a>{% endif %}
-    </p>
-
-        <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseExample"
-                aria-expanded="false" aria-controls="collapseExample">Comments
-        </button>
-
-        <div class="collapse " id="collapseExample">
-            <div class="card " style="width: 18rem;">
-                {% for comment in comments %}
-                    <div class="card mb-3">
-                        <div class="card-header text-muted">
-                            {{ comment.commentator }}
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">{{ comment.comment }}</p>
-                            {#                        <a href="#" class="btn btn-light btn-outline-secondary btn-sm">Комментрировать</a>#}
-                        </div>
-
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-
-    {% url 'detail' pk=object.pk as action %}
-    {% include 'form.html' with button="Комментировать" action=action %}
 
 {% endblock %}
