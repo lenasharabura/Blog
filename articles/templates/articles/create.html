@@ -1,17 +1,13 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Blog
+    Создание статьи
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="row my-5">
-            <div class="col-lg-8">
-                {% url 'save_article' as action%}
-                {% include 'form.html' with button="Сохранить" %}
-
-            </div>
-        </div>
+    <h1>Создание новой статьи</h1>
+    {% url 'save_article' as action %}
+    <div class="col-lg-8">
+        {% include 'form.html' with button="Сохранить" %}
     </div>
 {% endblock %}

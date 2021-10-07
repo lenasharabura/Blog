@@ -3,10 +3,13 @@
 {% block title %}Редактирование статьи{% endblock %}
 
 {% block content %}
-<h1>Редактировать статью</h1>
-
-    {% url 'update_article' as action %}
-{% include 'form.html' with button="Редактировать" action=action %}
+    <h1>Редактировать статью</h1>
+    {% url 'update' as action %}
+    <div class="row">
+        <div class="col-lg-8">
+            {% include 'form.html' with button="Редактировать" action=action %}
+        </div>
+    </div>
 
 {% endblock %}
 

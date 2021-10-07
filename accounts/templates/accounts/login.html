@@ -3,10 +3,10 @@
 {% block title %}Форма входа{% endblock %}
 
 {% block content %}
-<h1>Форма входа</h1>
+    <h1>Форма входа</h1>
 
-
-{% include 'form.html' with button="Войти" %}
-
+    <div class="col-lg-3">
+        {% include 'form.html' with button="Войти" %}
+    </div>
 {% endblock %}
 

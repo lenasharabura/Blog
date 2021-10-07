@@ -8,7 +8,6 @@
     <div class="container">
         <div class="row my-5">
             <div class="col-md-8">
-
                 {% for obj in page_obj %}
                     <div class="card border-secondary mb-3">
                         <div class="card-header">
@@ -27,8 +26,8 @@
                         </div>
                     </div>
                 {% endfor %}
-
             </div>
+
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header">
@@ -36,20 +35,17 @@
                     </div>
                     <ul class="list-group list-group-flush">
                         {% for article in top_articles %}
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <a href='{% url "detail" pk=article.article.pk %}'>{{ article.article.name }}</a>
-                                    <span class="badge rounded-pill bg-light text-dark">{{ article.count }}</span>
-                                </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href='{% url "detail" pk=article.article.pk %}'>{{ article.article.name }}</a>
+                                <span class="badge rounded-pill bg-light text-dark">{{ article.count }}</span>
+                            </li>
                         {% endfor %}
                     </ul>
-                    {#                {% for article, count in sorted_articles.items %}#}
-                    {#                    {{ comments.article }} {{ count }}#}
-                    {#                {% endfor %}#}
-
                 </div>
             </div>
         </div>
     </div>
+
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             <li class="page-item">
@@ -60,7 +56,6 @@
             </li>
 
             {% for page in page_obj.paginator.page_range %}
-
                 <li class="page-item {% if page == page_obj.number %} active {% endif %}">
                     <a class="page-link" href="?page={{ page }}">
                         {{ page }}
@@ -71,8 +66,6 @@
                 {% if page_obj.has_next %}
                     <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label='Next'>
                         <span aria-hidden="true">&raquo;</span></a>
-
-
                 {% endif %}
             </li>
         </ul>

@@ -9,6 +9,7 @@ class CommentForm(forms.ModelForm):
         'placeholder': 'Введите ваш комментарий',
         'cols': 20,
         'rows': 3,
+        'style': 'white-space: pre-line;'
     }))
 
     class Meta:
