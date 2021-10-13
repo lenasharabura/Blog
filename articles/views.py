@@ -14,10 +14,10 @@ from comments.models import Comment
 __all__ = (
     'home',
     'show_article',
-    'create_article',
     'save_article',
     'ArticleUpdateView',
     'ArticleDeleteView',
+    'save_comment',
 )
 
 
@@ -48,21 +48,24 @@ def home(request):
     return render(request, 'articles/home.html', context)
 
 
-def show_article(request, pk=None):
+def save_comment(request, pk=None):
     article = get_object_or_404(Article, pk=pk)
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            obj = Comment()
-            obj.name = article
-            obj.comment = form.cleaned_data['comment']
-            obj.commentator = request.user
-            obj.save()
-            return redirect('detail', pk=pk)
+    form = CommentForm(request.POST)
+    if form.is_valid():
+        obj = Comment()
+        obj.name = article
+        obj.comment = form.cleaned_data['comment']
+        obj.commentator = request.user
+        obj.save()
+        return redirect('detail', pk=pk)
 
+
+def show_article(request, pk=None):
+    if request.method == 'POST':
+        save_comment(request, pk)
     form = CommentForm()
     article = get_object_or_404(Article, pk=pk)
-    comments = article.name_set.all()
+    comments = article.article_names_set.all()
     context = {'article': article, 'comments': comments, 'form': form}
     return render(request, 'articles/detail.html', context)
 
@@ -86,12 +89,6 @@ class ArticleDeleteView(SuccessMessageMixin, DeleteView):
         return self.post(request, *args, **kwargs)
 
 
-def create_article(request):
-    form = ArticleForm()
-    context = {'form': form}
-    return render(request, 'articles/create.html', context)
-
-
 def save_article(request):
     if request.method == 'POST':
         form = ArticleForm(request.POST)
@@ -107,5 +104,6 @@ def save_article(request):
             return redirect('/')
         return render(request, 'articles/create.html', {"form": form})
     else:
-        messages.error(request, 'Невозможно создать статью')
-        return redirect('/')
+        form = ArticleForm()
+        context = {'form': form}
+        return render(request, 'articles/create.html', context)

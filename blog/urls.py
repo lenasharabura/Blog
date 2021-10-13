@@ -25,7 +25,7 @@ urlpatterns = [
     path('<int:pk>/', show_article, name='detail'),
     path('update/<int:pk>/', ArticleUpdateView.as_view(), name='update'),
     path('delete/<int:pk>/', ArticleDeleteView.as_view(), name='delete'),
-    path('create/', create_article, name='create'),
+    path('save_comment/', save_comment, name='save_comment'),
     path('save_article/', save_article, name='save_article'),
     path('accounts/', include(('accounts.urls', 'accounts'))),
 ]

@@ -6,11 +6,11 @@ User = get_user_model()
 
 
 class UserLoginForm(forms.Form):
-    username = forms.CharField(label='username', widget=forms.TextInput(attrs={
+    username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={
         'class': 'form-control',
-        'placeholder': 'Введите username'
+        'placeholder': 'Введите логин'
     }))
-    password = forms.CharField(label='password', widget=forms.PasswordInput(attrs={
+    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={
         'class': 'form-control',
         'placeholder': 'Введите пароль'
     }))
@@ -31,15 +31,15 @@ class UserLoginForm(forms.Form):
 
 
 class UserRegistrationForm(forms.ModelForm):
-    username = forms.CharField(label='Username', widget=forms.TextInput(attrs={
+    username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={
         'class': 'form-control',
-        'placeholder': 'Введите username'
+        'placeholder': 'Введите логин'
     }))
-    password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={
+    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={
         'class': 'form-control',
         'placeholder': 'Введите пароль'
     }))
-    password2 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={
+    password2 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={
         'class': 'form-control',
         'placeholder': 'Повторите пароль'
     }))

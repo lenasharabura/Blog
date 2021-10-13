@@ -4,7 +4,7 @@ from articles.models import Article
 
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('name', 'article', 'date', 'author')
+    list_display = ('name', 'date', 'author')
 
     class Meta:
         model = Article

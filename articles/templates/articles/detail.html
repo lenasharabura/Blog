@@ -5,8 +5,17 @@
 {% endblock %}
 
 {% block content %}
+
     <div class="row my-5">
         <div class="col-lg">
+            <div class="row">
+                <div class="col-md-6">
+                        <a href="{% url 'home' %}">
+                            <button type="button" class="btn border-secondary btn-light">Назад &#8629;</button>
+                        </a>
+                </div>
+            </div>
+            <br>
             <div class="row my-1">
                 <div class="col-lg-11">
                     <h2>{{ article.name }}</h2>
@@ -29,7 +38,7 @@
 
             {% if  user.is_authenticated %}
                 <div class="col-lg-6">
-                    {% url 'detail' pk=object.pk as action %}
+                    {% url 'save_comment' pk=object.pk as action %}
                     {% include 'form.html' with button="Комментировать" action=action %}
                 </div>
             {% endif %}
