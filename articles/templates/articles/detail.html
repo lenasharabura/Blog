@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load mathfilters %}
 {% block title %}
     Статья
 {% endblock %}
@@ -39,6 +39,11 @@
 
             <form action="{% url 'like_article' pk=article.pk %}" method="post">{% csrf_token %}
                 {% if  user.is_authenticated %}
+                    {% if users %}
+                        <p>Нравится {{ users.first }} {% if  users|length > 1 %}и ещё
+                            {{ total_likes|sub:1 }}{% endif %}</p>
+                    {% endif %}
+
                     <button type="submit" name="article_id" value="{{ article.pk }}"
                             class="btn btn-outline-danger btn-sm"> {{ total_likes }}
                         {% if liked %}<i class="bi bi-heart-fill"></i>

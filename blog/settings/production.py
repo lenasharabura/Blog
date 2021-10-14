@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'articles',
     'comments',
     'accounts',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [
