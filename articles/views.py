@@ -18,6 +18,7 @@ __all__ = (
     'ArticleUpdateView',
     'ArticleDeleteView',
     'save_comment',
+    'like_article'
 )
 
 
@@ -48,6 +49,15 @@ def home(request):
     return render(request, 'articles/home.html', context)
 
 
+def like_article(request, pk):
+    post = get_object_or_404(Article, id=request.POST.get('article_id'))
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+    else:
+        post.likes.add(request.user)
+    return redirect('detail', pk=pk)
+
+
 def save_comment(request, pk=None):
     article = get_object_or_404(Article, pk=pk)
     form = CommentForm(request.POST)
@@ -65,8 +75,14 @@ def show_article(request, pk=None):
         save_comment(request, pk)
     form = CommentForm()
     article = get_object_or_404(Article, pk=pk)
+    liked = False
+    if article.likes.filter(id=request.user.id).exists():
+        liked = True
+    users = article.likes.all()
+    total_likes = article.likes.count()
     comments = article.article_names_set.all()
-    context = {'article': article, 'comments': comments, 'form': form}
+    context = {'article': article, 'comments': comments, 'form': form, 'total_likes': total_likes, 'liked': liked,
+               'users': users}
     return render(request, 'articles/detail.html', context)
 
 

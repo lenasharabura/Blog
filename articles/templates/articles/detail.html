@@ -10,9 +10,9 @@
         <div class="col-lg">
             <div class="row">
                 <div class="col-md-6">
-                        <a href="{% url 'home' %}">
-                            <button type="button" class="btn border-secondary btn-light">Назад &#8629;</button>
-                        </a>
+                    <a href="{% url 'home' %}">
+                        <button type="button" class="btn border-secondary btn-light">Назад &#8629;</button>
+                    </a>
                 </div>
             </div>
             <br>
@@ -23,11 +23,11 @@
                 <div class="col-lg-1">
                     {% if article.author == user %}
                         <a href="{% url 'update' pk=article.pk %}" style="text-decoration: none;">
-                            &#128396;
+                            <i class="bi bi-pencil"></i>
                         </a>
                         &nbsp;
                         <a href="{% url 'delete' pk=article.pk %}" style="text-decoration: none;">
-                            &#128465;
+                            <i class="bi bi-trash"></i>
                         </a>{% endif %}
                 </div>
             </div>
@@ -35,7 +35,27 @@
             <p>{{ article.article }}</p>
             <small>Created: {{ article.date | date:"d.m.Y h:m" }} | by: {{ article.author }}</small>
             <p></p>
+            <br>
 
+            <form action="{% url 'like_article' pk=article.pk %}" method="post">{% csrf_token %}
+                {% if  user.is_authenticated %}
+                    <button type="submit" name="article_id" value="{{ article.pk }}"
+                            class="btn btn-outline-danger btn-sm"> {{ total_likes }}
+                        {% if liked %}<i class="bi bi-heart-fill"></i>
+                        {% else %}<i class="bi bi-heart"></i>
+                        {% endif %}
+                    </button>
+                {% else %}
+                    <button type="button" class="btn btn-outline-danger btn-sm">
+                        {{ total_likes }}<i class="bi bi-heart"></i>
+                    </button>
+                    <a href="{% url 'accounts:login' %}"> Войдите</a>, чтобы лайкнуть
+                {% endif %}
+
+            </form>
+
+
+            <br>
             {% if  user.is_authenticated %}
                 <div class="col-lg-6">
                     {% url 'save_comment' pk=object.pk as action %}
