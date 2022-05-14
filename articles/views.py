@@ -18,8 +18,13 @@ __all__ = (
     'ArticleUpdateView',
     'ArticleDeleteView',
     'save_comment',
-    'like_article'
+    'like_article',
+    'test'
 )
+
+
+def test(request):
+    return render(request, 'ДЗ5.html')
 
 
 def home(request):

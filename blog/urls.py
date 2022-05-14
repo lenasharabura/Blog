@@ -28,5 +28,7 @@ urlpatterns = [
     path('save_comment/<int:pk>/', save_comment, name='save_comment'),
     path('save_article/', save_article, name='save_article'),
     path('accounts/', include(('accounts.urls', 'accounts'))),
-    path('like/<int:pk>/', like_article, name='like_article')
+    path('like/<int:pk>/', like_article, name='like_article'),
+    path('test', test, name='test'),
+
 ]
